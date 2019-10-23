@@ -32,7 +32,8 @@ class App extends Component {
         let theDict = {};
         
         for(var i = 0; i < keyPairs.length; i++) {
-            theDict[keyPairs[i]] = valuePairs[i];
+            let key = keyPairs[i] ? keyPairs[i].toLowerCase() : '';
+            theDict[key] = valuePairs[i];
         }
         
         let regexString = keyPairs.join('|');
@@ -49,20 +50,42 @@ class App extends Component {
         return (
           <div className="App">
             <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              
-              <textarea 
-                rows={10} 
-                cols={50}
+              <div
                 style={{
-                    borderRadius: 4,
+                    color: 'yellow',
+                    position: 'fixed',
+                    top: 20,
+                    textDecoration: 'underline'
                 }}
-                value={inputText}
-                onChange={this.handleInputText}
               >
-                
-              </textarea>
+                Multi Replacer
+              </div>
               
+              <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+              >
+                  <label
+                    style={{
+                        fontSize: 12,
+                        marginBottom: 5
+                    }}
+                  >
+                    Enter your text here:
+                  </label>
+                  <textarea 
+                    rows={10} 
+                    cols={50}
+                    style={{
+                        borderRadius: 4,
+                    }}
+                    value={inputText}
+                    onChange={this.handleInputText}
+                  >
+                  </textarea>
+              </div>
               
               <div
                 style={{
@@ -71,7 +94,7 @@ class App extends Component {
                     alignItems: 'center'
                 }}
               >
-                  <label> Find: </label>
+                  <label> Find <span style={{ fontSize: 9 }}>(Comma separated texts)</span>: </label>
                   <input  
                     value={findText}
                     onChange={this.handleFindText}
@@ -90,7 +113,7 @@ class App extends Component {
                     alignItems: 'center'
                 }}
               >
-                  <label> Replace: </label>
+                  <label> Replace <span style={{ fontSize: 9 }}>(Corresponding Comma separated texts)</span>: </label>
                   <input  
                     value={replaceText}
                     onChange={this.handleReplaceText}
@@ -103,7 +126,7 @@ class App extends Component {
               
               
               <button
-                onClick={this.replace}
+                onClick={ inputText && findText && replaceText ? this.replace : undefined }
                 style={{
                     margin: 5
                 }}
@@ -111,16 +134,32 @@ class App extends Component {
                 Replace
               </button>
               
-              <textarea 
-                rows={10} 
-                cols={50}
+              <div
                 style={{
-                    borderRadius: 4,
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}
-                value={resultText}
               >
-                
-              </textarea>
+                <label
+                    style={{
+                        fontSize: 12,
+                        marginBottom: 5
+                    }}
+                >
+                    Your result here:
+                </label>
+                <textarea 
+                  rows={10} 
+                  cols={50}
+                  style={{
+                      borderRadius: 4,
+                  }}
+                  value={resultText}
+                >
+                  
+                </textarea>
+              </div>
+              
               
             </header>
             
