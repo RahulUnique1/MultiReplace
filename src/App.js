@@ -38,8 +38,11 @@ class App extends Component {
         
         let regexString = keyPairs.join('|');
         let re = new RegExp(regexString, 'gim');
-        resultText = inputText.replace(re, (match) => theDict[match]);
-        
+        // resultText = inputText.replace(re, (match) => theDict[match]);
+        resultText = inputText.replace(re, (match) => {
+            match = match ? match.toLowerCase() : '';
+            return theDict[match];
+        });
         this.setState({ resultText })
     }
     
